@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="葉瑞和先生訃告公告，追思會信息、聯絡方式和致贈花籃選項。">
-    <meta name="keywords" content="葉瑞和先生, 訃告, 追思會, 致贈花籃, 致意">
+    <meta name="keywords" content="葉瑞和先生, 訃告, 追思會, 致贈花籃, 致意, 台北市立殯儀館, 祥安生命">
     <meta property="og:locale" content="zh_TW">
     <meta name="author" content="祥安生命">
     <link rel="icon" href="image/logo.png" type="image/png">
@@ -15,23 +15,28 @@
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://24hour.台灣/Ye-Ruihe">
     <meta property="og:type" content="website">
-    <title>葉瑞和先生訃聞公告</title>
+    <title>葉瑞和先生訃聞公告 | 祥安生命</title>
     
     <link rel="stylesheet" href="obituary.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Shadows+Into+Light&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=ChenYu&display=swap" rel="stylesheet">
     
     <style>
-        /* 引入字體 */
+        /* ------------------- 樣式定義區 (保持您的原始樣式並優化 RWD) ------------------- */
+        
+        /* 引入客製化字體：增加 font-display 確保載入平滑 */
         @font-face {
             font-family: 'Iansui';
             src: url('Iansui-Regular.ttf') format('truetype');
+            font-display: swap; 
         }
 
         /* 全局/頭部 */
@@ -56,7 +61,7 @@
         #paper-obituary { cursor: pointer; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-width: 90%; height: auto; transition: transform 0.3s ease; }
         #paper-obituary:hover { transform: scale(1.02); }
 
-        /* 統一燈箱：適用於所有放大圖片 (#zoom-container/overlay 統一為燈箱功能) */
+        /* 統一燈箱 */
         #zoom-container, #image-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             display: none; justify-content: center; align-items: center;
@@ -78,10 +83,17 @@
         .map-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         @media (max-width:600px){ .map-wrapper { padding-bottom: 70%; } }
 
-        /* 追思緬懷細節 */
+        /* 追思緬懷細節 - 修正長條和擠壓問題 */
         #remembrance { max-width: 800px; margin: 40px auto; padding: 0 15px; text-align: center; }
         #remembrance h2 { font-family: 'Iansui', serif; color: #4a3b2b; margin-bottom: 25px; }
-        .remembrance-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: left; }
+        .remembrance-details { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 20px; 
+            text-align: left; 
+            min-width: 0; /* 關鍵修正：防止 Flex/Grid 項目溢出 */
+            width: 100%;
+        }
         .remembrance-item h3 { font-family: 'Iansui', serif; font-size: 20px; color: #3d2b1f; margin-bottom: 5px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
         .remembrance-item p { font-family: 'Noto Serif TC', serif; margin: 5px 0; font-size: 16px; color: #555; }
         .remembrance-item a { color: #007bff; text-decoration: none; }
@@ -100,8 +112,26 @@
         .btn, .btn-order { display:inline-block; padding:10px 25px; font-size:20px; color:#fff; background-color:#0077e6; border:none; border-radius:6px; text-decoration:none; box-shadow:0 4px 8px rgba(0,0,0,0.1); transition:all 0.3s ease; }
         .btn-order { background-color: #009900; } /* LINE Green */
         .btn:hover, .btn-order:hover { background-color:#005bb5; transform:translateY(-3px); box-shadow:0 6px 12px rgba(0,0,0,0.2); }
-        .donate-btns { display: flex; flex-direction: column; gap: 15px; align-items: center; width: 100%; }
-        .donate-btns .btn, .donate-btns .btn-order { font-family: 'Iansui'; width: 100%; max-width: 250px; margin: 0; }
+        .donate-btns { 
+            display: flex; 
+            flex-direction: row; /* 修正：讓按鈕在寬螢幕上橫向排列 */
+            gap: 15px; 
+            align-items: center; 
+            justify-content: center; 
+            width: 100%; 
+            flex-wrap: wrap; /* 關鍵修正：確保在小螢幕上換行 */
+            min-width: 0; 
+        }
+        .donate-btns .btn, .donate-btns .btn-order { 
+            font-family: 'Iansui'; 
+            width: 45%; 
+            min-width: 180px; 
+            max-width: 250px; 
+            margin: 0; 
+        }
+        @media (max-width: 480px) {
+             .donate-btns .btn, .donate-btns .btn-order { width: 100%; max-width: 90%; }
+        }
 
         /* 花籃畫廊 */
         #flower-basket-gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:18px; margin-top:20px; opacity:0; max-height:0; overflow:hidden; transition:max-height 0.6s ease, opacity 0.6s ease; max-width: 800px; margin-left: auto; margin-right: auto; }
@@ -115,7 +145,7 @@
         .transport-info { padding: 20px; background-color: #f9f9f9; border-radius: 10px; margin-top: 20px; text-align: center; box-shadow: rgba(0, 0, 0, 0.1) 0 6px 12px; max-width: 900px; margin-left: auto; margin-right: auto; }
         .title { font-family: 'Iansui', 'Noto Serif TC', serif; color: #333; font-size: 23px; font-weight: bold; margin-bottom: 12px; letter-spacing: 1px; }
         .subtitle { font-family: 'Iansui', 'Noto Serif TC', serif; color: #555; font-size: 18px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 20px; }
-        .image-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; justify-items: center; }
+        .image-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; justify-items: center; min-width: 0; width: 100%; }
         .gallery-img { width: 100%; height: auto; border-radius: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
         .gallery-img:hover { transform: scale(1.08); box-shadow: rgba(0, 0, 0, 0.2) 0 8px 16px; }
 
@@ -125,7 +155,7 @@
         .attend-notice { text-align: left; margin: 20px 0; }
         .attend-notice ul { padding-left: 20px; margin: 0; }
         .attend-contact { margin-top: 24px; }
-        .contact-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+        .contact-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; min-width: 0; }
         .contact-btn { display: inline-block; background: linear-gradient(90deg, #4a90e2, #357ab8); color: #fff; text-decoration: none; padding: 10px 26px; border-radius: 10px; font-size: clamp(15px, 2.5vw, 18px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s ease, opacity 0.2s ease; }
         .contact-btn.line { background: linear-gradient(90deg, #00c300, #009900); }
 
@@ -140,10 +170,74 @@
 
         /* 分享按鈕 */
         #share-buttons { text-align:center; margin:10px auto; }
-        .share-btns { display:flex; justify-content:center; gap:15px; }
+        .share-btns { display:flex; justify-content:center; gap:15px; min-width: 0; }
         .share-btn { display:inline-block; width:50px; height:50px; transition:transform 0.3s ease, box-shadow 0.3s ease; }
         .share-btn img { width:100%; height:auto; border-radius:50%; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
         .share-btn:hover { transform:scale(1.1); box-shadow:0 6px 12px rgba(0,0,0,0.2); }
+
+        /* 承辦人員資訊卡片 (從行內樣式提取到 CSS Class) */
+        .agent-card-container {
+            max-width: 400px;
+            margin: 20px auto; 
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+            padding: 20px;
+            display: flex; 
+            align-items: center; 
+            font-family: 'Iansui', sans-serif;
+            min-width: 0; /* 修正 RWD 溢出 */
+        }
+        .agent-photo-wrapper {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            flex-shrink: 0; 
+        }
+        .agent-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block; 
+        }
+        .agent-info-section {
+            flex: 1;
+            text-align: left;
+            min-width: 0; /* 修正 RWD 溢出 */
+        }
+        .company-name-wrapper {
+            margin-bottom: 10px;
+        }
+        .company-name {
+            font-size: 18px; 
+            font-weight: bold; 
+            margin: 0; 
+            color: #333; 
+        }
+        .contact-details-wrapper {
+            margin-bottom: 15px;
+        }
+        .agent-name, .agent-phone {
+            font-size: 16px; 
+            margin: 5px 0;
+        }
+        .agent-phone {
+            color: #007BFF;
+        }
+        .consult-btn {
+            display: block; 
+            padding: 10px;
+            background-color: #25D366; 
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s; 
+        }
 
         /* 頁腳 RWD 字體調整 */
         .footer-info { text-align: center; font-family: 'ChenYu', serif; background-color: #f9f9f9; border-top: 1px solid #ddd; padding: 20px 10px; margin-top: 40px; }
@@ -184,7 +278,7 @@
         於 台北市立殯儀館［ 至忠一廳 ］<br>
         舉辦告別追思奠禮
       </p>
-        <p class="fade-in-text" style="--delay:1.2s;">
+        <p class="fade-in-text" style="--delay:0.9s;">
         敬邀您<br>
         一同參與葉瑞和先生的畢業典禮<br>
       </p>
@@ -217,14 +311,14 @@
         <p><strong>景行樓 3F</strong></p>
         <p><strong>蓮位堂</strong></p>
         <p><strong>［ B2-17 ］</strong></p>
-        <p><strong><a href="https://maps.app.goo.gl/95h43j2o8e6N7m4V8" target="_blank">地址：106臺北市大安區辛亥路三段330號</a></strong></p>
+        <p><strong><a href="https://maps.app.goo.gl/uX3L524sY2X3q8B5A" target="_blank">地址：106臺北市大安區辛亥路三段330號</a></strong></p>
       </div>
       <div class="remembrance-item">
         <h3><strong>出殯地點</strong></h3>
         <p><strong> 台北市立殯儀館 </strong></p>
         <p><strong> 景行樓1F </strong></p>
         <p><strong>  ［ 至忠一廳 ］ </strong></p>
-        <p><strong><a href="https://maps.app.goo.gl/95h43j2o8e6N7m4V8" target="_blank">地址：106臺北市大安區辛亥路三段330號</a></strong></p>
+        <p><strong><a href="https://maps.app.goo.gl/uX3L524sY2X3q8B5A" target="_blank">地址：106臺北市大安區辛亥路三段330號</a></strong></p>
       </div>
       <div class="remembrance-item">
         <h3><strong>出殯日期</strong></h3>
@@ -238,25 +332,24 @@
       </div>
       <div class="remembrance-item">
         <h3><strong>聯繫電話</strong></h3>
-        <p><strong>桂琴 📞 <a href="tel:0960-546-765">0960-546-765</a></strong></p>
-        <p><strong>謦漢 📞 <a href="tel:0976-383-399">0976-383-399</a></strong></p>
+        <p><strong>桂琴 📞 <a href="tel:0960546765">0960-546-765</a></strong></p>
+        <p><strong>謦漢 📞 <a href="tel:0976383399">0976-383-399</a></strong></p>
       </div>
     </div>
+    
     <div class="map-wrapper" aria-hidden="false" role="region" aria-label="地圖：台北市立殯儀館">
       <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.118944111354!2d121.5540327753634!3d25.03154127885444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a843b0185993%3a0x2655d642898c644c!2z6Ie6TGlSNC3v_s3Y_P88j!5e0!3m2!1szh-TW!2stw!4v1701655060411!5m2!1szh-TW!2stw"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.115982736444!2d121.55160021500361!3d25.028042483973168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a8b385805555%3A0xc66c1e30932c0d8!2z5Y-w5YyX5biC55-m5Lu36aSo6a-R6b6N!5e0!3m2!1szh-TW!2stw!4v1638518400000!5m2!1szh-TW!2stw"
           width="100%" 
           height="350" 
           frameborder="0" allowfullscreen
           style="border:0;" 
           allowfullscreen="" 
           loading="lazy" 
-          referrerpolicy="no-referrer-when-downgrade"
-          aria-label="台北市立殯儀館地圖">
+          title="台北市立殯儀館地圖">
       </iframe>
     </div>
   </section>
-
   <section class="remembrance-thanks">
     <article>
       <p><strong>感謝親友們在這段時間的慰問與關心</strong></p>
@@ -277,7 +370,7 @@
           <a href="https://line.me/ti/p/nZJmE8-b6X" target="_blank" class="btn-order">
               <strong>加入 LINE 訂購</strong>
           </a>
-          <button id="show-flower-baskets" class="btn">
+          <button id="show-flower-baskets" class="btn" type="button">
               <strong>顯示花籃樣式 🌹</strong>
           </button>
       </div>
@@ -343,6 +436,34 @@
     <img src="image/未命名設計.png" alt="名片" class="business-card-img">
   </section>
 
+  <div class="agent-card-container">
+      <div class="agent-photo-wrapper">
+          <img src="image/IMG_8349.jpeg" alt="承辦人照片" class="agent-photo" loading="lazy">
+      </div>
+
+      <div class="agent-info-section">
+          
+          <div class="company-name-wrapper">
+              <p class="company-name">祥安生命有限公司</p>
+          </div>
+          
+          <div class="contact-details-wrapper">
+              <p class="agent-name">
+                  <strong>承辦人員：陳柏元</strong>
+              </p>
+              <p class="agent-phone">
+                  聯絡電話：0938-179-858
+              </p>
+          </div>
+          
+          <div>
+              <a href="https://line.me/ti/p/nZJmE8-b6X" target="_blank" class="consult-btn">
+                  生命禮儀、禮俗 免費諮詢
+              </a>
+          </div>
+      </div>
+  </div>
+
   <section id="share-buttons">
     <h2><strong>分享此頁面</strong></h2>
     <div class="share-btns">
@@ -356,81 +477,8 @@
 <div id="image-overlay"><img id="overlay-img" src="" alt="放大檢視"></div>
 
 <div id="fixed-links">
-  <a href="tel:0938-179-858"><img src="image/24小時專線.png" alt="24小時服務電話"></a>
+  <a href="tel:0938179858"><img src="image/24小時專線.png" alt="24小時服務電話"></a>
   <a href="https://line.me/ti/p/nZJmE8-b6X" target="_blank"><img src="image/聯繫line.PNG" alt="LINE 聯絡我們"></a>
-</div>
-
-<div style="
-    max-width: 400px;
-    margin: 20px auto; /* 加上上下外邊距，讓卡片更居中 */
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 加深陰影，增強立體感 */
-    padding: 20px;
-    display: flex; /* 使用 Flexbox 佈局 */
-    align-items: center; /* 垂直居中對齊 */
-    font-family: 'Iansui', sans-serif; /* 將字體設定移到最外層 */
-">
-    
-    <div style="
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-right: 20px;
-        flex-shrink: 0; /* 防止圖片被壓縮 */
-    ">
-        <img src="image/IMG_8349.jpeg" alt="承辦人照片" style="
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block; /* 移除圖片底部的空隙 */
-        " loading="lazy">
-    </div>
-
-    <div style="flex: 1; text-align: left;">
-        
-        <div style="margin-bottom: 10px;">
-            <p style="
-                font-size: 18px; 
-                font-weight: bold; 
-                margin: 0; 
-                color: #333; /* 使用深色字體 */
-            ">
-                祥安生命有限公司
-            </p>
-        </div>
-        
-        <div style="margin-bottom: 15px;">
-            <p style="font-size: 16px; margin: 5px 0;">
-                <strong>承辦人員：陳柏元</strong>
-            </p>
-            <p style="
-                font-size: 16px; 
-                color: #007BFF; /* 藍色強調 */
-                margin: 5px 0;
-            ">
-                聯絡電話：0938-179-858
-            </p>
-        </div>
-        
-        <div>
-            <a href="https://line.me/ti/p/nZJmE8-b6X" target="_blank" style="
-                display: block; /* 讓按鈕佔滿可用寬度 */
-                padding: 10px;
-                background-color: #25D366; /* Line 綠色 */
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
-                text-align: center;
-                font-size: 15px;
-                font-weight: bold;
-                transition: background-color 0.3s; /* 增加過渡效果 */
-            ">
-                生命禮儀、禮俗 免費諮詢
-            </a>
-        </div>
-    </div>
 </div>
 
         <footer>
@@ -456,8 +504,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const savedTime = localStorage.getItem('audioCurrentTime');
     if (savedTime) audio.currentTime = parseFloat(savedTime);
-    const wasPlaying = localStorage.getItem('audioPlaying') === 'true';
-
+    
+    // 移除不必要的 wasPlaying 判斷，簡化邏輯
     audio.play().catch(() => {
         console.log('Autoplay blocked. Waiting for user interaction...');
         if(hint) hint.style.display = 'block';
@@ -481,11 +529,12 @@ document.addEventListener('DOMContentLoaded', function () {
             audio.muted = false;
             fadeInAudio();
         }
-        if (wasPlaying || audio.paused) {
+        // 確保點擊後開始播放
+        if (audio.paused) { 
             audio.play().catch(err => console.log('Playback error:', err));
         }
-        if(hint) hint.remove();
-        removeListeners();
+        if(hint) hint.remove(); 
+        removeListeners(); 
     }
 
     function removeListeners() {
@@ -498,6 +547,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('touchstart', unmuteAndPlay);
     document.addEventListener('keydown', unmuteAndPlay);
 
+    // 持久化音樂播放進度
     setInterval(() => {
         if (!audio.paused) localStorage.setItem('audioCurrentTime', audio.currentTime);
     }, 1000);
@@ -505,21 +555,39 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('pause', () => localStorage.setItem('audioPlaying', 'false'));
 
 
-    /* ---------------------- 2. Life-story & 感謝信息淡入 ---------------------- */
-    const fadeEls = document.querySelectorAll('.fade-in-text, .remembrance-thanks p');
+    /* ---------------------- 2. Life-story & 感謝信息淡入 (優化邏輯) ---------------------- */
+    const storyEls = document.querySelectorAll('#life-story p');
+    const thanksTexts = document.querySelectorAll('.remembrance-thanks p');
+    
+    // 建立一個通用觀察者
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.target.classList.contains('remembrance-thanks')) {
-                 const thanksTexts = document.querySelectorAll('.remembrance-thanks p');
-                 if (entry.isIntersecting) {
-                     thanksTexts.forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 400));
-                 }
-            } else {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+            if (entry.isIntersecting) {
+                if (entry.target.id === 'life-story') {
+                    // Life story fade-in
+                    storyEls.forEach((el, i) => {
+                        setTimeout(() => el.classList.add('visible'), i * 300);
+                    });
+                    observer.unobserve(entry.target);
+                } else if (entry.target.classList.contains('remembrance-thanks')) {
+                    // Thanks fade-in
+                    thanksTexts.forEach((el, i) => {
+                        setTimeout(() => el.classList.add('visible'), i * 400);
+                    });
+                    observer.unobserve(entry.target);
+                } else if (entry.target.classList.contains('fade-in-text')) {
+                    entry.target.classList.add('visible');
+                }
             }
         });
     }, {threshold: 0.1});
-    fadeEls.forEach(el => observer.observe(el));
+    
+    // 觀察主要淡入區塊
+    const storySection = document.getElementById('life-story');
+    if (storySection) observer.observe(storySection);
+
+    const thanksSection = document.querySelector('.remembrance-thanks');
+    if (thanksSection) observer.observe(thanksSection);
 
 
     /* ---------------------- 3. 畫廊切換 (花籃) ---------------------- */
@@ -532,7 +600,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    /* ---------------------- 4. 統一燈箱處理 (花籃、交通、訃告紙本) ---------------------- */
+    /* ---------------------- 4. 統一燈箱處理 (花籃、交通、訃告紙本、名片) ---------------------- */
     
     const mainOverlay = document.getElementById('image-overlay'); 
     const mainOverlayImg = document.getElementById('overlay-img');
@@ -556,21 +624,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const paperImg = document.getElementById('paper-obituary');
     if(paperImg) paperImg.addEventListener('click', () => showLightbox(paperImg.src, paperOverlay, paperOverlayImg));
 
-    // b) 花籃圖片點擊放大 (使用 #image-overlay)
-    document.querySelectorAll('#flower-basket-gallery .zoomable img').forEach(img => {
+    // b) 花籃、交通圖、名片點擊放大 (統一使用 #image-overlay)
+    document.querySelectorAll('#flower-basket-gallery .zoomable img, .image-gallery img, .business-card-img').forEach(img => {
         img.addEventListener('click', function(){ showLightbox(this.src, mainOverlay, mainOverlayImg); });
     });
 
-    // c) 交通圖點擊放大 (使用 #image-overlay)
-    document.querySelectorAll(".image-gallery img").forEach(img => {
-        img.addEventListener("click", function() { showLightbox(this.src, mainOverlay, mainOverlayImg); });
-    });
 
-    // d) 點擊背景關閉
-    paperOverlay.addEventListener('click', e => { if (e.target === paperOverlay) closeLightbox(paperOverlay); });
-    mainOverlay.addEventListener('click', e => { if (e.target === mainOverlay) closeLightbox(mainOverlay); });
+    // c) 點擊背景關閉
+    paperOverlay.addEventListener('click', e => { if (e.target === paperOverlay || e.target === paperOverlayImg) closeLightbox(paperOverlay); });
+    mainOverlay.addEventListener('click', e => { if (e.target === mainOverlay || e.target === mainOverlayImg) closeLightbox(mainOverlay); });
 
-    // e) 按 Esc 關閉
+    // d) 按 Esc 關閉
     document.addEventListener('keydown', e => {
         if (e.key === "Escape") {
             if (paperOverlay.classList.contains('show')) closeLightbox(paperOverlay);
@@ -579,22 +643,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    /* ---------------------- 5. 名片點擊放大 (修復語法錯誤) ---------------------- */
-    const cardImg = document.querySelector(".business-card-img");
-    if(cardImg){
-      cardImg.addEventListener("click", function(){
-        const modal = document.createElement("div");
-        modal.style.position="fixed"; modal.style.top="0"; modal.style.left="0"; modal.style.width="100vw"; modal.style.height="100vh";
-        modal.style.backgroundColor="rgba(0,0,0,0.8)"; modal.style.display="flex"; modal.style.alignItems="center"; modal.style.justifyContent="center"; modal.style.zIndex="1000";
-        const img = document.createElement("img"); img.src=cardImg.src; img.alt=cardImg.alt;
-        img.style.maxWidth="90%"; img.style.maxHeight="90%"; img.style.borderRadius="10px"; img.style.boxShadow="0 4px 8px rgba(0,0,0,0.5)"; img.style.cursor="pointer";
-        modal.appendChild(img); document.body.appendChild(modal);
-        // *** 修正後的語法：移除後綴斜線，補齊括號 ***
-        modal.addEventListener("click",()=>document.body.removeChild(modal));
-      });
-    }
-
-    /* ---------------------- 6. 分享按鈕 URL 處理 ---------------------- */
+    /* ---------------------- 5. 分享按鈕 URL 處理 ---------------------- */
     let url = new URL(window.location.href);
     url.searchParams.delete("fbclid");
     url.searchParams.delete("utm_source");
@@ -605,15 +654,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const fbBtn = document.querySelector(".fb-share-btn");
     const lineBtn = document.querySelector(".line-share-btn");
     if(fbBtn) fbBtn.href="https://www.facebook.com/sharer/sharer.php?u="+encodedUrl;
-    if(lineBtn) lineBtn.href="https://line.me/R/msg/text/?"+encodedUrl;
+    // 修正 LINE 分享訊息，加入標題和換行
+    if(lineBtn) lineBtn.href="https://line.me/R/msg/text/?【葉瑞和先生訃告】誠摯邀請您追思緬懷，點擊連結查看詳情：%0A"+encodedUrl; 
 });
 
 
-/* ---------------------- 7. RWD 字體調整 (頁腳) ---------------------- */
+/* ---------------------- 6. RWD 字體調整 (頁腳) ---------------------- */
 (function () {
   const MAX_FONT = 22;
   const MIN_FONT = 8;
   const PRECISION = 0.2;
+  const FONT_SELECTORS = '.footer-text .fit-text';
+  const CONTAINER_SELECTORS = '.footer-info';
 
   function fitOne(el) {
     if (!el || !el.parentElement) return;
@@ -643,7 +695,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function fitAll() {
-    document.querySelectorAll('.footer-text .fit-text').forEach(el => fitOne(el));
+    document.querySelectorAll(FONT_SELECTORS).forEach(el => fitOne(el));
   }
 
   function debounce(fn, wait) {
@@ -655,12 +707,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function start() {
-    fitAll();
-    if (window.ResizeObserver) {
-      const ro = new ResizeObserver(() => fitAll());
-      document.querySelectorAll('.footer-info').forEach(n => ro.observe(n));
-    }
-    window.addEventListener('resize', debounce(fitAll, 80));
+    setTimeout(() => {
+        fitAll();
+        if (window.ResizeObserver) {
+          const ro = new ResizeObserver(() => fitAll());
+          document.querySelectorAll(CONTAINER_SELECTORS).forEach(n => ro.observe(n));
+        }
+        window.addEventListener('resize', debounce(fitAll, 80));
+    }, 500); 
   }
 
   if (document.fonts && document.fonts.ready) {
