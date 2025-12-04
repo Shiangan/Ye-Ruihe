@@ -762,16 +762,37 @@ document.getElementById('show-flower-baskets').addEventListener('click', functio
     : '<strong>顯示花籃樣式 🌹</strong>';
 });
 
-// ---------- 點擊放大圖片 ----------
+
+/// ---------- 點擊放大圖片 ----------
+// 點擊放大圖片
 document.querySelectorAll('.zoomable img').forEach(img=>{
   img.addEventListener('click', function(){
     const overlay = document.getElementById('image-overlay');
     const overlayImg = document.getElementById('overlay-img');
     overlayImg.src = this.src;
     overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // 🔑 優化：防止背景滾動
   });
 });
-document.getElementById('image-overlay').addEventListener('click', function(){ this.style.display='none'; });
+
+const imageOverlay = document.getElementById('image-overlay');
+
+// 點擊燈箱任意處關閉
+const closeLightbox = () => {
+    imageOverlay.style.display = 'none';
+    document.body.style.overflow = ''; // 🔑 優化：恢復背景滾動
+};
+
+imageOverlay.addEventListener('click', closeLightbox);
+
+// 🔑 優化：新增 ESC 鍵關閉支持
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && imageOverlay.style.display === 'flex') {
+        closeLightbox();
+    }
+});
+
+
 
 // ---------- 名片點擊放大 ----------
 const cardImg = document.querySelector(".business-card-img");
@@ -783,11 +804,9 @@ if(cardImg){
     const img = document.createElement("img"); img.src=cardImg.src; img.alt=cardImg.alt;
     img.style.maxWidth="90%"; img.style.maxHeight="90%"; img.style.borderRadius="10px"; img.style.boxShadow="0 4px 8px rgba(0,0,0,0.5)"; img.style.cursor="pointer";
     modal.appendChild(img); document.body.appendChild(modal);
-    modal.addEventListener("click",()=>document.body.removeChild(modal));
-  });
-}
-
-// ---------- 分享按鈕 URL ----------
+    modal.addEventListener("click",()=>document.body.removeChild）/
+        
+        ---------- 分享按鈕 URL ----------
 document.addEventListener("DOMContentLoaded", function () {
   let url = new URL(window.location.href);
   url.searchParams.delete("fbclid");
@@ -799,7 +818,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector(".fb-share-btn").href="https://www.facebook.com/sharer/sharer.php?u="+encodedUrl;
   document.querySelector(".line-share-btn").href="https://line.me/R/msg/text/?"+encodedUrl;
 });
-</script>
+
        
 <div>
    <div class="transport-info">
@@ -1276,6 +1295,17 @@ document.querySelectorAll(".image-gallery img").forEach(img => {
       t = setTimeout(() => fn.apply(this, arguments), wait);
     };
   }
+
+    // ---------- 分享按鈕 URL ----------
+document.addEventListener("DOMContentLoaded", function () {
+  let url = new URL(window.location.href);
+  // ... 刪除參數邏輯 ...
+  if(url.hostname.includes("xn--")) url.hostname="24hour.台灣";
+  let encodedUrl = encodeURIComponent(url.toString());
+  document.querySelector(".fb-share-btn").href="https://www.facebook.com/sharer/sharer.php?u="+encodedUrl;
+  document.querySelector(".line-share-btn").href="https://line.me/R/msg/text/?"+encodedUrl;
+});
+
 
   // 若支援 Font Loading API 就等字體載入再開始（避免字被誤判太長）
   if (document.fonts && document.fonts.ready) {
